@@ -1,8 +1,13 @@
+/*
+    This task was solved using Knuth's Algorithm X (Dancing links) and Deep First Search.
+    There are no any strict input limitations provided in a task description.
+    So, assume that this will be enough to use predefined memory limitation and not to use std::vector comparing to previous tasks
+*/
+
 #include <cstdio>
 #include <algorithm>
 
-const int maxn = 500005;
-
+const int maxn = 1024;
 
 
 class DancingLinksNode
@@ -40,6 +45,7 @@ public:
 
     void insert(int x, int y)
     {
+        // insert new piece
         int temp = cnt - 1;
         if (row[temp] != x)
         {
@@ -59,6 +65,7 @@ public:
     }
     void remove(int k)
     {
+        // remove piece
         right[left[k]] = right[k], left[right[k]] = left[k];
         for (int i = down[k]; i != k; i = down[i])
             for (int j = right[i]; j != i; j = right[j])
@@ -70,6 +77,7 @@ public:
     }
     void resume(int k)
     {
+        // move further
         right[left[k]] = k, left[right[k]] = k;
         for (int i = down[k]; i != k; i = down[i])
             for (int j = right[i]; j != i; j = right[j])
@@ -79,7 +87,7 @@ public:
                 sum[col[j]]++;
             }
     }
-    int A()
+    int dfsCalc()
     {
         int dis = 0;
         for (int i = right[0]; i != 0; i = right[i])
@@ -98,7 +106,7 @@ public:
     void depthFirstSearch(int k)
     {
         // DFS recursively looking for a best
-        if (k + A() >= num)
+        if (k + dfsCalc() >= num)
             return;
         if (!right[0]) {num = std::min(k, num); return;}
         int now = right[0];

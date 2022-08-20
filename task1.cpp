@@ -1,3 +1,8 @@
+/*
+Solving this task I was trying to implement production style approach, not just "code the implementation". 
+Using iterators, dynamic container 
+*/
+
 #include<stdio.h>
 #include<string.h>
 #include<vector>
@@ -6,6 +11,7 @@
 
 
 char *intToAscii(char *src, uint32_t srcLen){
+    // Converts array of ascii codes represneed as integers to a char based array
     char *asString = src;
     auto i = 0;
     while (src[i] == 0){
